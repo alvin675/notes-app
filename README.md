@@ -35,9 +35,9 @@ The repository is organized into two main directories, separating the frontend a
 ## Tech Stack
 
 -   **Backend**:
-    -   PHP
+    -   [PHP](https://www.php.net/)
     -   [Laravel](https://laravel.com/)
-    -   MySQL
+    -   [MySQL](https://www.mysql.com/)
 -   **Frontend**:
     -   [React](https://react.dev/)
     -   [Vite](https://vitejs.dev/)
