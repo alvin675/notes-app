@@ -37,7 +37,7 @@ The repository is organized into two main directories, separating the frontend a
 -   **Backend**:
     -   PHP
     -   [Laravel](https://laravel.com/)
-    -   SQLite (default, configurable)
+    -   MySQL
 -   **Frontend**:
     -   [React](https://react.dev/)
     -   [Vite](https://vitejs.dev/)
@@ -77,12 +77,15 @@ cp .env.example .env
 # Generate an application key
 php artisan key:generate
 
-# Create the SQLite database file
-touch database/database.sqlite
+# Create the MySQL database file
+create database <database name>;
 
 # Run database migrations and seed the database with initial data
 # This will create the necessary tables and populate them with users, categories, etc.
 php artisan migrate --seed
+
+# For re-running the database again from the starting
+php artisan migrate:fresh --seed
 
 # Start the Laravel development server (defaults to http://127.0.0.1:8000)
 php artisan serve
