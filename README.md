@@ -3,7 +3,7 @@
 
 A full-stack note-taking application built with a React frontend and a Laravel backend. This application allows users to register, log in, and manage their personal to-do lists through a clean and responsive user interface.
 
-## Table of Contents
+## 🚀 Table of Contents
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -14,14 +14,14 @@ A full-stack note-taking application built with a React frontend and a Laravel b
 - [License](#license)
 
   
-## Project Structure
+## 🚧 Project Structure
 
 The repository is organized into two main directories, separating the frontend and backend concerns:
 
 -   `Frontend-React/notes-app/`: Contains the React application built with Vite.
 -   `Backend-laravel/todoApp/`: Contains the Laravel API that serves the data.
 
-## Features
+## 🪶 Features
 
 -   **User Authentication**: Secure user registration and login functionality using a custom JSON Web Token (JWT) implementation.
 -   **Full CRUD for Notes**: Create, read, update, and delete notes.
@@ -32,7 +32,7 @@ The repository is organized into two main directories, separating the frontend a
 -   **Search Functionality**: Filter and find notes by title.
 -   **Interactive UI**: A modal-based interface for creating and editing notes without leaving the main view.
 
-## Tech Stack
+## 🖥️ Tech Stack
 
 -   **Backend**:
     -   [PHP](https://www.php.net/)
@@ -44,14 +44,14 @@ The repository is organized into two main directories, separating the frontend a
     -   [Tailwind CSS](https://tailwindcss.com/)
     -   [Axios](https://axios-http.com/) for API requests
 
-## Prerequisites
+## ⚖️ Prerequisites
 
 Before you begin, ensure you have the following installed on your local machine:
 -   PHP >= 8.2
 -   Composer
 -   Node.js and npm
 
-## Getting Started
+## 🏛️ Getting Started
 
 ### 1. Clone the repository
 
@@ -111,7 +111,7 @@ npm run dev
 
 After completing these steps, open your browser and navigate to the address provided by the Vite server (e.g., `http://localhost:5173`) to use the application.
 
-## API Endpoints
+## 🥣 API Endpoints
 
 The Laravel backend provides the following API endpoints, all prefixed with `/api`.
 
