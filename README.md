@@ -1,4 +1,4 @@
-# Notes App
+# Notes App 🖋️
 [![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/alvin675/notes-app)
 
 A full-stack note-taking application built with a React frontend and a Laravel backend. This application allows users to register, log in, and manage their personal to-do lists through a clean and responsive user interface.
