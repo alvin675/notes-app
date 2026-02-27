@@ -20,8 +20,9 @@ function Login({ onLogin }) {
       return;
     }
     try {
-      const payload = isUser ? { email: user.email, password: user.pass } : 
-                               { name: user.name, email: user.email, password: user.pass};
+      const payload = isUser 
+        ? { email: user.email, password: user.pass } 
+        : { name: user.name, email: user.email, password: user.pass};
 
       const response = await axios.post(url, payload);
       

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 
-
 class JWT{
 
     public static function CreateJWT($payload) {
@@ -37,7 +36,7 @@ class JWT{
         
         list($header, $payload, $signature) = $parts;
         
-        $secret_key = env('JWT_SECRET_KEY', 'fIRst-93-App');   // Fallback
+        $secret_key = env('JWT_SECRET_KEY', 'fIRst-93-App');
         
         // Verify signature
         $main_data = $header . '.' . $payload;
@@ -52,7 +51,7 @@ class JWT{
         $decoded_payload = json_decode(self::base64UrlDecode($payload));
         
         // Check expiration
-        if (isset($decoded_payload->exp) && time() > $decoded_payload->exp) {   // isset() check - exists and Not null?
+        if (isset($decoded_payload->exp) && time() > $decoded_payload->exp) {
             return false;
         }
         

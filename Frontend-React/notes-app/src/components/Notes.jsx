@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { CiEdit } from "react-icons/ci"
+import { MdDelete } from "react-icons/md"
+import CreateNote from "./CreateNote"
 import axios from 'axios'
-import { CiEdit } from "react-icons/ci";
-import { MdDelete } from "react-icons/md";
-import CreateNote from "./CreateNote";
 
 function Notes() {
   const [notes, setNotes] = useState([]);
@@ -80,7 +79,7 @@ function Notes() {
     }
     axios.get(`http://127.0.0.1:8000/api/todo/${text.id}`, authHeader())
       .then((res) => {
-        setNotes([res.data]);   // The single response is object, so turned into array
+        setNotes([res.data]);   // The single response is object, so, it turned into an array
       })
       .catch((err) => {
         console.error("Error: ", err);

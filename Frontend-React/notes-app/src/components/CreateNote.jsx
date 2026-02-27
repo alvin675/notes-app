@@ -9,7 +9,7 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
     priority_id: 1,
     status_id: 1,
     category_id: 1,
-    due_date: new Date().toISOString().split('T')[0]  // Default date
+    due_date: new Date().toISOString().split('T')[0]
   });
   const today = new Date().toISOString().split("T")[0];
   
@@ -51,8 +51,9 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
 
     // POST, PUT
     const url = "http://127.0.0.1:8000/api/todo";
-    const reqData = initialData ? axios.put(`${url}/${initialData.id}`, task, authHeader()) : 
-                                  axios.post(url, task, authHeader());
+    const reqData = initialData 
+      ? axios.put(`${url}/${initialData.id}`, task, authHeader()) 
+      : axios.post(url, task, authHeader());
     
 
     reqData.then(() => {
@@ -61,10 +62,6 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
       })
       .catch((err) => {
         console.error("Error: ", err.response?.data);
-
-        // if (err.response?.status === 422) {
-        // alert("Validation Failed: " + JSON.stringify(err.response.data.errors));
-        // }
       });
   };
 
