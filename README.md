@@ -38,6 +38,7 @@ The repository is organized into two main directories, separating the frontend a
     -   [PHP](https://www.php.net/)
     -   [Laravel](https://laravel.com/)
     -   [MySQL](https://www.mysql.com/)
+    -   [Claude AI](https://claude.com/product/overview) for suggestions next notes
 -   **Frontend**:
     -   [React](https://react.dev/)
     -   [Vite](https://vitejs.dev/)
