@@ -100,7 +100,7 @@ function Notes() {
         </div>
         
         <div className="search">
-          <input type="text" value={searchText} onChange={(v) => setSearchText(v.target.value) } placeholder="Find a notes" className="border-2 border-gray-700/30 rounded-xl p-1 pl-3 w-60 md:w-100" />
+          <input type="text" value={searchText} onChange={(v) => setSearchText(v.target.value) } placeholder="Find a notes" className="border-2 border-gray-700/30 rounded-xl p-1 pl-3 w-50 md:w-100" />
           <button onClick={() => find()} className="ml-5 bg-black/80 text-white p-1 rounded-2xl pl-3 pr-3 font-bold hover:bg-blue-500 transition duration-600 ease-in-out" >
             search
           </button>
