@@ -61,10 +61,6 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
       })
       .catch((err) => {
         console.error("Error: ", err.response?.data);
-
-        // if (err.response?.status === 422) {
-        // alert("Validation Failed: " + JSON.stringify(err.response.data.errors));
-        // }
       });
   };
 
