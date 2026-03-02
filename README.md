@@ -31,6 +31,7 @@ The repository is organized into two main directories, separating the frontend a
     -   **Category**: Work, Personal, Shopping, Health, Finance
 -   **Search Functionality**: Filter and find notes by title.
 -   **Interactive UI**: A modal-based interface for creating and editing notes without leaving the main view.
+-   **AI Integration**: Integrated Claude AI to analyze the current note and suggest relevant next notes.
 
 ## 🖥️ Tech Stack
 
@@ -38,7 +39,7 @@ The repository is organized into two main directories, separating the frontend a
     -   [PHP](https://www.php.net/)
     -   [Laravel](https://laravel.com/)
     -   [MySQL](https://www.mysql.com/)
-    -   [Claude AI](https://claude.com/product/overview) for suggestions next notes
+    -   [Claude AI](https://claude.com/product/overview)
 -   **Frontend**:
     -   [React](https://react.dev/)
     -   [Vite](https://vitejs.dev/)
@@ -63,7 +64,7 @@ cd notes-app
 
 ### 2. Backend Setup (Laravel)
 
-Navigate to the backend directory and follow these steps:
+## i. Navigate to the backend directory and follow these steps:
 
 ```bash
 # Go to the backend directory
@@ -78,8 +79,26 @@ cp .env.example .env
 # Generate an application key
 php artisan key:generate
 
+```
+## ii. Create a MySQL database and add in the .env file
+```bash
 # Create the MySQL database file
 create database <database name>;
+
+
+
+# Default Values replace in .env files
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=<database name>
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## iii. Migrate and running the server
+
+```bash
 
 # Run database migrations and seed the database with initial data
 # This will create the necessary tables and populate them with users, categories, etc.
