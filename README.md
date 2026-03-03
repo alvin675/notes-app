@@ -64,7 +64,7 @@ cd notes-app
 
 ### 2. Backend Setup (Laravel)
 
-## i. Navigate to the backend directory and follow these steps:
+#### i. Navigate to the backend directory and follow these steps:
 
 ```bash
 # Go to the backend directory
@@ -80,12 +80,10 @@ cp .env.example .env
 php artisan key:generate
 
 ```
-## ii. Create a MySQL database and add in the .env file
+#### ii. Create a MySQL database and update the information in the .env file
 ```bash
 # Create the MySQL database file
 create database <database name>;
-
-
 
 # Default Values replace in .env files
 DB_CONNECTION=mysql
@@ -96,7 +94,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-## iii. Migrate and running the server
+#### iii. Migrate and running the server
 
 ```bash
 
@@ -104,7 +102,7 @@ DB_PASSWORD=
 # This will create the necessary tables and populate them with users, categories, etc.
 php artisan migrate --seed
 
-# For re-running the database again from the starting
+# Or for re-running the database again from the starting
 php artisan migrate:fresh --seed
 
 # Start the Laravel development server (defaults to http://127.0.0.1:8000)
