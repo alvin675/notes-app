@@ -20,13 +20,10 @@ class SuggestionController extends Controller
         ])->post('https://api.anthropic.com/v1/messages', [
             'model' => 'claude-opus-4-6',
             'max_tokens' => 1000,
-            'thinking' => [
-                'type' => 'adaptive'
-            ],
+            'system' => "You are a note-taking assistance. Respond ONLY with a raw JSON array of objects. Each object must have a 'title' string and a 'descriptions' array of strings. Do not include markdown backticks or any other text.",
             'messages' => [
                 ['role' => 'user',
-                'content' => "Based on these notes, give me 3 concise suggestions for next notes. Each note has one 
-                title and some descriptions. Always return a JSON array instead of text.: " . $userText]
+                'content' => "Provide 3 next note suggestions for: " . $userText]
             ],
         ]);
 
@@ -37,8 +34,11 @@ class SuggestionController extends Controller
             ], $response->status());
         }
 
+        $content = json_decode($response->json('content.0.text'), true);
+        // $text = collect($content)->firstWhere('type', 'text')['text'] ?? '';
+
         return response()->json([
-            'details' => $response->json()
-        ]);
+            'details' => $content,
+        ], 200);
     }
 }

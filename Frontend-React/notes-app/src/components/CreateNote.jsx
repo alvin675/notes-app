@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import Suggestions from "./Suggestions"
 
 function CreateNote({ onCancel, onSuccess, initialData }) {
   const [task, setTask] = useState({
@@ -12,7 +12,31 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
     due_date: new Date().toISOString().split('T')[0]  // Default date
   });
   const today = new Date().toISOString().split("T")[0];
-  
+
+  // Show the Suggestions Tab
+  const [AISuggestions, setAISuggestions] = useState(false);
+  const suggestionRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if(suggestionRef.current && !suggestionRef.current.contains(event.target)) {
+        setAISuggestions(false);
+      }
+    }
+    if(AISuggestions) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [AISuggestions]);
+
+  // Disable the blur Screen Scrollable
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+    
   useEffect(() => {
     if(initialData) {
       setTask({
@@ -67,8 +91,8 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
   
   return (
   <>
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-md z-40"></div>
-    <div className="bg-white rounded-3xl p-15 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border-1 border-blue-300/30 shadow-2xl z-50 " >
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-md overflow-hidden z-40"></div>
+    <div className="bg-white rounded-3xl p-15 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] max-h-[90vh] border-1 border-blue-300/30 shadow-2xl z-50" >
       <h1 className="text-4xl m-auto flex mb-10 justify-center items-center">
         {initialData ? "Edit Task" : "Create New Task"}
       </h1>
@@ -105,6 +129,23 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </label>
+        
+        <div className="flex justify-end mt-2">
+          <button 
+            type="button"
+            onClick={() => {
+              if (!task.title.trim() || !task.description.trim()) {
+                alert("Please add title and description for AI suggestions!");
+                return;
+              }
+              setAISuggestions(true);
+            }}
+            className="flex item-center gap-2 text-sm font-bold text-indigo-500 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-200"
+          >
+            <span>💡</span> AI Suggest
+          </button>
+        </div>
+
         <div>
             <span className="block mb-2 text-lg font-medium text-gray-700">
               Priority:
@@ -378,9 +419,29 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
             {initialData ? "Update" : "Create"}
           </button>
         </div>
-        
+  
       </form>
     </div>
+
+    {AISuggestions && (
+      <div 
+        ref={suggestionRef}
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-4xl z-60 animate-in fade-in zoom-in duration-200"
+      >
+        <div className="bg-white border-2 border-indigo-500 shadow-2xl rounded-2xl p-5 overflow-hidden max-h-[80vh] overflow-y-auto">
+          
+          <Suggestions 
+          onSelect={(item) => {
+            const allDescriptions = item.descriptions.join('\n\n');
+            setTask({...task, title: item.title, description: allDescriptions});
+            setAISuggestions(false);
+          }} 
+          title={task.title}
+          description={task.description}
+        />
+        </div>
+      </div>
+    )}
   </>
   )
 }
