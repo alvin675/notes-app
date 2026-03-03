@@ -142,3 +142,10 @@ The Laravel backend provides the following API endpoints, all prefixed with `/ap
 | `POST`  | `/todo`          | Create a new to-do item.                     | Yes       |
 | `PUT`   | `/todo/{id}`     | Update an existing to-do item by its ID.     | Yes       |
 | `DELETE`| `/todo/{id}`     | Delete a to-do item by its ID.               | Yes       |
+| `POST`  | `/notes/suggestion` | Give a suggestion based on current title, description. | Yes     |
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to fork the repository, create a new branch and submit a pull request for any improvements, new features or bug fixes.
+
+## ♠️ License
+This project is open-source and available under the MIT License. You are free to use, modify and distribute this project in accordance with the license terms.
