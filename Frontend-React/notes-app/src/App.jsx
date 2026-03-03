@@ -19,6 +19,7 @@ function App() {
         <Login onLogin={() => setIsAuthenticated(true)} />
       )}
     </div>
+    
   );
 }
 
