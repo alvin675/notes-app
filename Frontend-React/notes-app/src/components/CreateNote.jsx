@@ -16,6 +16,7 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
   // Show the Suggestions Tab
   const [AISuggestions, setAISuggestions] = useState(false);
   const suggestionRef = useRef(null);
+  
   useEffect(() => {
     function handleClickOutside(event) {
       if(suggestionRef.current && !suggestionRef.current.contains(event.target)) {

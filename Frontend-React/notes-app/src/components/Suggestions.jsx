@@ -5,56 +5,49 @@ function Suggestions({onSelect, title, description}) {
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const fetchSuggestions = async () => {
+  const getSuggestions = async () => {
     setLoading(true)
     try {
       const authHeader = () => {
         const token = localStorage.getItem('token');
         return { headers: { Authorization: `Bearer ${token}` }};
       }
-
       const requestData = {
         title: title,
         description: description
       }
-
       const response = await axios.post('http://127.0.0.1:8000/api/notes/suggestion', requestData, authHeader())
         setSuggestions(response.data.details || [])
-    } catch (error) {
-        console.error('Error fetching suggestions:', error)
-        alert('Failed to fetch AI suggestions. Please try again.')
-      } finally {
-        setLoading(false)
-      }
+    } 
+    catch (error) {
+      console.error('Error:', error)
+      alert('Failed to Connect. Please try again.')
+    } 
+    finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     if (title && description) {
-      fetchSuggestions()
+      getSuggestions()
     }
   }, [title, description])
 
-  if (loading) {
+  if(loading) {
     return (
-      <div className="flex justify-center items-center p-8">
-        <div className="text-gray-500">Loading AI suggestions...</div>
+      <div className="flex justify-center items-center ">
+        <div className="text-black-300/40">Loading...</div>
       </div>
     )
   }
 
-  if (suggestions.length === 0) {
-    return (
-      <div className="flex justify-center items-center p-8">
-        <div className="text-gray-500">No suggestions available</div>
-      </div>
-    )
-  }
 
   return (
-  <div className="max-h-[80vh] md:max-h-none overflow-y-auto md:overflow-visible p-6">
+    <div className="max-h-[80vh] md:max-h-none overflow-y-auto md:overflow-visible p-6">
     <div className="max-w-7xl mx-auto">
       <h1 className="text-2xl flex items-center pl-5 mt-2 mb-4">
-        ✨ AI Suggestions
+        ✨ Need an Idea?
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center items-stretch">
         {suggestions.map((suggestion, index) => (
@@ -63,9 +56,9 @@ function Suggestions({onSelect, title, description}) {
               {suggestion.title}
             </h2>
             <div className="flex-1">
-              {suggestion.descriptions.map((desc, descIndex) => (
-                <p key={descIndex} className="mb-1 text-sm">
-                  {desc}
+              {suggestion.descriptions.map((des, desIndex) => (
+                <p key={desIndex} className="mb-1 text-sm">
+                  {des}
                 </p>
               ))}
             </div>
