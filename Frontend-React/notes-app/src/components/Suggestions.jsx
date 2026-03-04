@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 
-function Suggestions({onSelect, title, description}) {
+function Suggestions({onSelect, title, description, triggerSuggestion}) {
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
+  const isCallingRef = useRef(false)
 
   const getSuggestions = async () => {
+    if (isCallingRef.current) return
+    isCallingRef.current = true
     setLoading(true)
     try {
       const authHeader = () => {
@@ -25,14 +28,15 @@ function Suggestions({onSelect, title, description}) {
     } 
     finally {
       setLoading(false)
+      isCallingRef.current = false
     }
   }
 
   useEffect(() => {
-    if (title && description) {
+    if (triggerSuggestion > 0 && title && description) {
       getSuggestions()
     }
-  }, [title, description])
+  }, [triggerSuggestion])
 
   if(loading) {
     return (

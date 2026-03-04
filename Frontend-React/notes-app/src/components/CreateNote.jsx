@@ -2,6 +2,34 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Suggestions from "./Suggestions"
 
+
+const priority = [
+  {id: 1, label: 'low'},
+  {id: 2, label: 'medium'},
+  {id: 3, label: 'High'},
+  {id: 4, label: 'Urgent'},
+  {id: 5, label: 'Immediate'},
+];
+
+const status = [
+  {id: 1, label: 'Pending'},
+  {id: 2, label: 'In progress'},
+  {id: 3, label: 'Completed'},
+  {id: 4, label: 'On Hold'},
+  {id: 5, label: 'Canceled'},
+];
+
+Work, Personal, Shopping, Health, Finance 
+
+const category = [
+  {id: 1, label: 'Work'},
+  {id: 2, label: 'Personal'},
+  {id: 3, label: 'Shopping'},
+  {id: 4, label: 'Health'},
+  {id: 5, label: 'Finance'},
+]
+
+
 function CreateNote({ onCancel, onSuccess, initialData }) {
   const [task, setTask] = useState({
     title: "",
@@ -15,6 +43,7 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
 
   // Show the Suggestions Tab
   const [AISuggestions, setAISuggestions] = useState(false);
+  const [triggerSuggestion, setTriggerSuggestion] = useState(0);
   const suggestionRef = useRef(null);
   
   useEffect(() => {
@@ -88,6 +117,7 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
       .catch((err) => {
         console.error("Error: ", err.response?.data);
       });
+
   };
 
   
@@ -137,10 +167,11 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
             type="button"
             onClick={() => {
               if (!task.title.trim() || !task.description.trim()) {
-                alert("Please add title and description for AI suggestions!");
+                alert("Please add title and description for suggestions!");
                 return;
               }
               setAISuggestions(true);
+              setTriggerSuggestion(prev => prev + 1); // Increment to trigger API call
             }}
             className="flex item-center gap-2 text-sm font-bold text-indigo-500 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-200"
           >
@@ -149,254 +180,80 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
         </div>
 
         <div>
-            <span className="block mb-2 text-lg font-medium text-gray-700">
-              Priority:
-            </span>
-            <div className="flex item-center gap-2">
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="priority" 
-                value="1" 
-                checked={task.priority_id === 1}
-                onChange={() => setTask({
-                  ...task,
-                  priority_id: 1
-                })} 
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                Low
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="priority" 
-                value="2"
-                checked={task.priority_id === 2}
-                onChange={() => setTask({
-                  ...task,
-                  priority_id: 2
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300" />
-              <span>
-                Medium
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="priority" 
-                value="3" 
-                checked={task.priority_id === 3}
-                onChange={() => setTask({
-                  ...task,
-                  priority_id: 3
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300" />
-              <span>
-                High
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="priority" 
-                value="4" 
-                checked={task.priority_id === 4}
-                onChange={() => setTask({
-                  ...task,
-                  priority_id: 4
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300" />
-              <span>
-                Urgent
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="priority" 
-                value="5" 
-                checked={task.priority_id === 5}
-                onChange={() => setTask({
-                  ...task,
-                  priority_id: 5
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300" />
-              <span>
-                Immediate
-              </span>
-            </label>
-          </div>
-        </div>
-        <div>
-          <span className="block mt-2 mb-1 text-lg font-medium text-gray-700">Status:</span>
+          <span className="block mb-2 text-lg font-medium text-gray-700">
+            Priority:
+          </span>
           <div className="flex item-center gap-2">
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="status" 
-                value="1" 
-                checked={task.status_id === 1}
-                onChange={() => setTask({
-                  ...task,
-                  status_id: 1
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                Pending
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="status" 
-                value="2" 
-                checked={task.status_id === 2}
-                onChange={() => setTask({
-                  ...task,
-                  status_id: 2
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                In Progress
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="status" 
-                value="3"
-                checked={task.status_id === 3}
-                onChange={() => setTask({
-                  ...task,
-                  status_id: 3
-                })} 
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                Completed
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="status" 
-                value="4" 
-                checked={task.status_id === 4}
-                onChange={() => setTask({
-                  ...task,
-                  status_id: 4
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                On Hold
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="status" 
-                value="5" 
-                checked={task.status_id === 5}
-                onChange={() => setTask({
-                  ...task,
-                  status_id: 5
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"/>
-              <span>
-                Canceled
-              </span>
-            </label>
+            {priority.map((val) => (
+              <label key={val.id} className="flex items-center space-x-2 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="priority"  
+                  checked={task.priority_id === val.id}
+                  onChange={() => setTask({
+                    ...task,
+                    priority_id: val.id
+                  })} 
+                  className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
+                />
+                <span>
+                  {val.label}
+                </span>
+              </label>
+            ))}
           </div>
         </div>
+
+        <div>
+          <span className="block mt-2 mb-1 text-lg font-medium text-gray-700">
+            Status:
+          </span>
+          <div className="flex item-center gap-2">
+            {status.map((val) => (
+              <label key={val.id} className="flex items-center space-x-2 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="status"  
+                  checked={task.status_id === val.id}
+                  onChange={() => setTask({
+                    ...task,
+                    status_id: val.id
+                  })}
+                  className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
+                />
+                <span>
+                  {val.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+
         <div>
           <span className="block mt-2 mb-2 text-lg font-medium text-gray-700">
             Category:
           </span>
           <div className="flex item-center gap-2">
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="category" 
-                value="1" 
-                checked={task.category_id === 1}
-                onChange={() => setTask({
-                  ...task,
-                  category_id: 1
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
-              />
-              <span>
-                Work
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="category" 
-                value="2" 
-                checked={task.category_id === 2}
-                onChange={() => setTask({
-                  ...task,
-                  category_id: 2
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
-              />
-              <span>
-                Personal
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="category" 
-                value="3" 
-                checked={task.category_id === 3}
-                onChange={() => setTask({
-                  ...task,
-                  category_id: 3
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
-              />
-              <span>
-                Shopping
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="category" 
-                value="4" 
-                checked={task.category_id === 4}
-                onChange={() => setTask({
-                  ...task,
-                  category_id: 4
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
-              />
-              <span>
-                Health
-              </span>
-            </label>
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input 
-                type="radio" 
-                name="category" 
-                value="5" 
-                checked={task.category_id === 5}
-                onChange={() => setTask({
-                  ...task,
-                  category_id: 5
-                })}
-                className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
-              />
-              <span>
-                Finance
-              </span>
-            </label>
+            {category.map((val) => (
+              <label key={val.id} className="flex items-center space-x-2 cursor-pointer">
+                <input 
+                  type="radio" 
+                  name="category" 
+                  checked={task.category_id === val.id}
+                  onChange={() => setTask({
+                    ...task,
+                    category_id: val.id
+                  })}
+                  className="form-radio h-4 w-4 text-blue-500  focus:ring-blue-300"
+                />
+                <span>
+                  {val.label}
+                </span>
+              </label>
+            ))}
           </div>
         </div>
+
         <div className="mt-2">
           <label className="text-lg font-medium text-gray-700 mr-3">
             Due Date: 
@@ -433,14 +290,15 @@ function CreateNote({ onCancel, onSuccess, initialData }) {
         <div className="bg-white border-2 border-indigo-500 shadow-2xl rounded-2xl p-5 overflow-hidden max-h-[80vh] overflow-y-auto">
           
           <Suggestions 
-          onSelect={(item) => {
-            const allDescriptions = item.descriptions.join('\n\n');
-            setTask({...task, title: item.title, description: allDescriptions});
-            setAISuggestions(false);
-          }} 
-          title={task.title}
-          description={task.description}
-        />
+            onSelect={(item) => {
+              const allDescriptions = item.descriptions.join('\n\n');
+              setTask({...task, title: item.title, description: allDescriptions});
+              setAISuggestions(false);
+            }} 
+            title={task.title}
+            description={task.description}
+            triggerSuggestion={triggerSuggestion}
+          />
         </div>
       </div>
     )}
