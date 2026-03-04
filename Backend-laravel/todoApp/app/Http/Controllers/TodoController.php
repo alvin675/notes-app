@@ -7,7 +7,6 @@ use App\Models\Todo;
 
 class TodoController extends Controller
 {
-    // Create a Instance
     public function store(Request $request) {
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -51,11 +50,6 @@ class TodoController extends Controller
         $userid = $request->auth_user_id;
 
         $todos = Todo::where('user_id', $userid)->get();
-        // $todos = Todo::with([
-        //     'category',
-        //     'priority',
-        //     'status'
-        // ])->where('user_id', auth()->id())->get();
 
         return response()->json($todos, 200);
     }

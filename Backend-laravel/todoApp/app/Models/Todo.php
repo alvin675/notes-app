@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    //protected $table = 'todos'; // if I am not used todos it assumes plurals like todo_models
     use HasFactory;
 
     protected $fillable = [
@@ -20,7 +19,6 @@ class Todo extends Model
     'due_date',
     ];
 
-    // Define a relationship
     
     // Many to One (Many todolist -> One Category)
     public function category(){
@@ -37,8 +35,4 @@ class Todo extends Model
         return $this->belongsTo(Priority::Class);
     }
 
-    // One to Many
-    // public function checklists() {  // for having has many use lower and plural because it returns list
-    //     return $this->hasMany(Checklist::Class, 'todo_id');
-    // }
 }

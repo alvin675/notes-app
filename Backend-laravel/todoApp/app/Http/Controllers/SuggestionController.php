@@ -35,7 +35,6 @@ class SuggestionController extends Controller
         }
 
         $content = json_decode($response->json('content.0.text'), true);
-        // $text = collect($content)->firstWhere('type', 'text')['text'] ?? '';
 
         return response()->json([
             'details' => $content,

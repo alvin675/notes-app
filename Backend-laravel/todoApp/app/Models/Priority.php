@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Priority extends Model
 {
     use HasFactory;
-    //protected $table = 'priorities'; // Connect with correct table
+    
     protected $fillable = ['title'];
 }

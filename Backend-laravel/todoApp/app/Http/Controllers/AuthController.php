@@ -14,7 +14,7 @@ class AuthController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $errors = [];  // Empty Array
+        $errors = [];
 
         // EMAIL CHECK
         if (!$email) {
@@ -39,12 +39,6 @@ class AuthController extends Controller
                 'errors' => $errors
             ], 422);
         }
-        /*
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-        */
 
         $existingUser = User::where('email', $request->email)->first();
 
@@ -121,13 +115,6 @@ class AuthController extends Controller
             ], 422);
         }
 
-        /*
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
-        */
         $newUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
